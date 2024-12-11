@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('pendaftarans', function (Blueprint $table) {
             $table->id();
+            $table->string('nisn', 30);
+            $table->unsignedBigInteger('id_pendaftaran')->nullable();
+            $table->date('tgl_daftar');
+            $table->string('status', 30)->default('pending');
+            $table->unsignedBigInteger('id_pengumuman')->nullable();
             $table->timestamps();
+
+            $table->foreign('nisn')
+                ->references('nisn')
+                ->on('siswas')
+                ->onDelete('cascade');
         });
     }
 

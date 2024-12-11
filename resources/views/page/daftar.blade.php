@@ -6,7 +6,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Pendaftaran Murid Baru - Sekolah Kita</title>
     @vite('resources/css/app.css')
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg-base-200">
@@ -29,240 +28,97 @@
             <section class="card bg-base-100 shadow-xl">
                 <div class="card-body">
                     <h2 class="card-title text-2xl mb-4">Formulir Pendaftaran Murid Baru</h2>
-                    <form 
-                        x-data="registrationForm()" 
-                        @submit.prevent="submitForm" 
-                        class="space-y-4"
-                    >
+                    <form action="{{ route('siswa.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                         @csrf
+
+                        <!-- NISN -->
                         <div class="form-control">
                             <label class="label" for="nisn">NISN</label>
-                            <input 
-                                type="text" 
-                                id="nisn" 
-                                x-model="formData.nisn" 
-                                placeholder="Masukkan NISN" 
-                                class="input input-bordered input-primary w-full" 
-                                required 
-                            />
+                            <input type="text" id="nisn" name="nisn" placeholder="Masukkan NISN" class="input input-bordered input-primary w-full" required />
                         </div>
 
+                        <!-- Nama Lengkap -->
                         <div class="form-control">
                             <label class="label" for="nama">Nama Lengkap</label>
-                            <input 
-                                type="text" 
-                                id="nama" 
-                                x-model="formData.nama" 
-                                placeholder="Masukkan nama lengkap" 
-                                class="input input-bordered input-primary w-full" 
-                                required 
-                            />
+                            <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap" class="input input-bordered input-primary w-full" required />
                         </div>
 
+                        <!-- Tanggal Lahir -->
                         <div class="form-control">
-                            <label class="label" for="tanggalLahir">Tanggal Lahir</label>
-                            <input 
-                                type="date" 
-                                id="tanggalLahir" 
-                                x-model="formData.tgl_lahir" 
-                                class="input input-bordered input-primary w-full" 
-                                required 
-                            />
+                            <label class="label" for="tgl_lahir">Tanggal Lahir</label>
+                            <input type="date" id="tgl_lahir" name="tgl_lahir" class="input input-bordered input-primary w-full" required />
                         </div>
 
+                        <!-- Jenis Kelamin -->
                         <div class="form-control">
                             <label class="label">Jenis Kelamin</label>
                             <div class="flex space-x-4">
                                 <label class="label cursor-pointer">
-                                    <input 
-                                        type="radio" 
-                                        name="jenis_kelamin" 
-                                        value="Laki-laki" 
-                                        x-model="formData.jenis_kelamin" 
-                                        class="radio radio-primary" 
-                                        required 
-                                    />
+                                    <input type="radio" name="jenis_kelamin" value="Laki-laki" class="radio radio-primary" required />
                                     <span class="label-text ml-2">Laki-laki</span>
                                 </label>
                                 <label class="label cursor-pointer">
-                                    <input 
-                                        type="radio" 
-                                        name="jenis_kelamin" 
-                                        value="Perempuan" 
-                                        x-model="formData.jenis_kelamin" 
-                                        class="radio radio-primary" 
-                                        required 
-                                    />
+                                    <input type="radio" name="jenis_kelamin" value="Perempuan" class="radio radio-primary" required />
                                     <span class="label-text ml-2">Perempuan</span>
                                 </label>
                             </div>
                         </div>
 
+                        <!-- Alamat -->
                         <div class="form-control">
                             <label class="label" for="alamat">Alamat</label>
-                            <textarea 
-                                id="alamat" 
-                                x-model="formData.alamat" 
-                                class="textarea textarea-bordered textarea-primary" 
-                                placeholder="Masukkan alamat lengkap" 
-                                required
-                            ></textarea>
+                            <textarea id="alamat" name="alamat" class="textarea textarea-bordered textarea-primary" placeholder="Masukkan alamat lengkap" required></textarea>
                         </div>
 
+                        <!-- Nama Orang Tua/Wali -->
                         <div class="form-control">
-                            <label class="label" for="namaOrangTua">Nama Orang Tua/Wali</label>
-                            <input 
-                                type="text" 
-                                id="namaOrangTua" 
-                                x-model="formData.nama_orang_tua" 
-                                placeholder="Masukkan nama orang tua/wali" 
-                                class="input input-bordered input-primary w-full" 
-                                required 
-                            />
+                            <label class="label" for="nama_orang_tua">Nama Orang Tua/Wali</label>
+                            <input type="text" id="nama_orang_tua" name="nama_orang_tua" placeholder="Masukkan nama orang tua/wali" class="input input-bordered input-primary w-full" required />
                         </div>
 
+                        <!-- Nomor Telepon -->
                         <div class="form-control">
-                            <label class="label" for="nomorTelepon">Nomor Telepon</label>
-                            <input 
-                                type="tel" 
-                                id="nomorTelepon" 
-                                x-model="formData.no_telp" 
-                                placeholder="Masukkan nomor telepon" 
-                                class="input input-bordered input-primary w-full" 
-                                required 
-                            />
+                            <label class="label" for="no_telp">Nomor Telepon</label>
+                            <input type="tel" id="no_telp" name="no_telp" placeholder="Masukkan nomor telepon" class="input input-bordered input-primary w-full" required />
                         </div>
 
+                        <!-- Sekolah Asal -->
                         <div class="form-control">
-                            <label class="label" for="sekolahAsal">Sekolah Asal</label>
-                            <input 
-                                type="text" 
-                                id="sekolahAsal" 
-                                x-model="formData.sekolah_asal" 
-                                placeholder="Masukkan nama sekolah asal" 
-                                class="input input-bordered input-primary w-full" 
-                                required 
-                            />
+                            <label class="label" for="sekolah_asal">Sekolah Asal</label>
+                            <input type="text" id="sekolah_asal" name="sekolah_asal" placeholder="Masukkan sekolah asal" class="input input-bordered input-primary w-full" required />
                         </div>
 
+                        <!-- Nilai Ujian -->
                         <div class="form-control">
-                            <label class="label" for="nilaiUjian">Nilai Ujian</label>
-                            <input 
-                                type="number" 
-                                id="nilaiUjian" 
-                                x-model="formData.nilai_ujian" 
-                                placeholder="Masukkan nilai ujian" 
-                                class="input input-bordered input-primary w-full" 
-                                required min="0" max="100" 
-                            />
+                            <label class="label" for="nilai_ujian">Nilai Ujian</label>
+                            <input type="number" id="nilai_ujian" name="nilai_ujian" placeholder="Masukkan nilai ujian" class="input input-bordered input-primary w-full" required />
                         </div>
 
+                        <!-- Ijazah -->
                         <div class="form-control">
                             <label class="label" for="ijazah">Ijazah</label>
-                            <input 
-                                type="file" 
-                                id="ijazah" 
-                                @change="handleFileUpload" 
-                                class="file-input file-input-bordered file-input-primary w-full" 
-                                accept=".pdf,.jpg,.jpeg,.png" 
-                                required 
-                            />
+                            <input type="file" id="ijazah" name="ijazah" class="file-input file-input-bordered file-input-primary w-full" required />
                         </div>
 
-                        <div x-show="errorMessage" class="alert alert-error">
-                            <span x-text="errorMessage"></span>
-                        </div>
-
+                        <!-- Submit Button -->
                         <div class="form-control mt-6">
-                            <button 
-                                type="submit" 
-                                class="btn btn-primary" 
-                                :disabled="isLoading"
-                            >
-                                <span x-show="!isLoading">Daftar</span>
-                                <span x-show="isLoading">Mengirim...</span>
-                            </button>
+                            <button type="submit" class="btn btn-primary w-full">Daftar</button>
                         </div>
+
+                        <!-- Error Message -->
+                        @if ($errors->any())
+                            <div class="alert alert-error mt-4">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </form>
                 </div>
             </section>
         </div>
     </div>
-
-    <script>
-        function registrationForm() {
-            return {
-                formData: {
-                    nisn: '',
-                    nama: '',
-                    tgl_lahir: '',
-                    jenis_kelamin: '',
-                    alamat: '',
-                    nama_orang_tua: '',
-                    no_telp: '',
-                    sekolah_asal: '',
-                    nilai_ujian: '',
-                },
-                ijazahFile: null,
-                isLoading: false,
-                errorMessage: '',
-
-                handleFileUpload(event) {
-                    this.ijazahFile = event.target.files[0];
-                },
-
-                submitForm() {
-                    this.errorMessage = '';
-                    this.isLoading = true;
-
-                    const formData = new FormData();
-                    Object.keys(this.formData).forEach(key => {
-                        formData.append(key, this.formData[key]);
-                    });
-
-                    if (this.ijazahFile) {
-                        formData.append('ijazah', this.ijazahFile);
-                    }
-
-                    fetch('/daftar-siswa', {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,
-                            'X-Requested-With': 'XMLHttpRequest',
-                            'Accept': 'application/json',
-                        },
-                    })
-                    .then(response => {
-                        this.isLoading = false;
-                        if (!response.ok) {
-                            return response.json().then(errorData => {
-                                throw new Error(errorData.message || 'Gagal mengirim data');
-                            });
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        alert(data.message);
-                        this.resetForm();
-                    })
-                    .catch(error => {
-                        this.isLoading = false;
-                        console.error('Error:', error);
-                        this.errorMessage = error.message || 'Terjadi kesalahan saat mengirim formulir.';
-                    });
-                },
-
-                resetForm() {
-                    Object.keys(this.formData).forEach(key => {
-                        this.formData[key] = '';
-                    });
-                    document.getElementById('ijazah').value = '';
-                    this.ijazahFile = null;
-                    this.errorMessage = '';
-                }
-            };
-        }
-    </script>
 </body>
 </html>

@@ -18,8 +18,8 @@
                 <div class="card-body">
                     <h2 class="card-title text-2xl mb-4 text-primary">Ringkasan Pembayaran</h2>
                     <div class="space-y-2 text-base-content">
-                        <p><span class="font-semibold">Nama Siswa:</span> <span x-text="nama"></span></p>
-                        <p><span class="font-semibold">NISN:</span> <span x-text="nisn"></span></p>
+                        <p><span class="font-semibold">Nama Siswa:</span>{{ $siswa->nama }}</span></p>
+                        <p><span class="font-semibold">NISN:</span> {{ $siswa->nisn }}</span></p>
                         <p><span class="font-semibold">Biaya Pendaftaran:</span> Rp 500.000</p>
                         <p><span class="font-semibold">Biaya Seragam:</span> Rp 300.000</p>
                         <p><span class="font-semibold">Biaya Buku:</span> Rp 200.000</p>

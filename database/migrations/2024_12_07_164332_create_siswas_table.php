@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('jenis_kelamin', 20);
             $table->string('alamat', 50);
             $table->string('nama_orang_tua', 50);
-            $table->integer('no_telp');
+            $table->string('no_telp', 15);
             $table->string('sekolah_asal', 40);
             $table->float('nilai_ujian', 10, 2);
             $table->string('ijazah')->nullable();

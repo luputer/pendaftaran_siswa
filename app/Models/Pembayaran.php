@@ -5,25 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pengumuman extends Model
+class Pembayaran extends Model
 {
     use HasFactory;
 
-    protected $table = 'pengumuman';  // Pastikan ini benar
+    protected $table = 'pembayaran';  // Pastikan ini mengacu pada nama tabel yang benar
     protected $fillable = [
         'id_pendaftaran',
-        'nisn',
-        'nama',
-        'judul',
-        'hasil',
-        'created_at',
-        'updated_at'
+        'jumlah_pembayaran',
+        'tanggal_pembayaran',
+        'metode_pembayaran',
+        'status',
     ];
-
-    public function siswa()
-    {
-        return $this->belongsTo(Siswa::class, 'nisn', 'nisn');
-    }
 
     public function pendaftaran()
     {
