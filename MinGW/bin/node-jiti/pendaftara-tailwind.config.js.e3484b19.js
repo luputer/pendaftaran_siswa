@@ -1,4 +1,5 @@
-"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _defaultTheme = require('tailwindcss/defaultTheme'); var _defaultTheme2 = _interopRequireDefault(_defaultTheme);
+"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _daisyui = require('daisyui'); var _daisyui2 = _interopRequireDefault(_daisyui);
+var _defaultTheme = require('tailwindcss/defaultTheme'); var _defaultTheme2 = _interopRequireDefault(_defaultTheme);
 
 /** @type {import('tailwindcss').Config} */
 exports. default = {
@@ -16,6 +17,8 @@ exports. default = {
             },
         },
     },
-    plugins: [],
+    plugins: [
+        _daisyui2.default,
+    ],
 };
- /* v7-48eb44c9e5384408 */
+ /* v7-96e610d32812e635 */
