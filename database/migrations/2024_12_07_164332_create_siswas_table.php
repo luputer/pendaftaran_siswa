@@ -23,11 +23,18 @@ return new class extends Migration
             $table->float('nilai_ujian', 10, 2);
             $table->string('ijazah')->nullable();
             $table->timestamps();
+            $table->index('nisn');  // Menambahkan index pada kolom 'nisn'
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
+        Schema::table('siswas', function (Blueprint $table) {
+            $table->dropIndex(['nisn']);  // Menghapus index pada kolom 'nisn'
+        });
         Schema::dropIfExists('siswas');
     }
 };

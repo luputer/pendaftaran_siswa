@@ -9,10 +9,10 @@ class Siswa extends Model
 {
     use HasFactory;
 
-    protected $table = 'siswas'; // Ensure this is the correct table name  
-    protected $primaryKey = 'nisn'; // Specify your primary key here  
-    public $incrementing = false; // Set to false if the primary key is not auto-incrementing  
-    protected $keyType = 'string'; // If your primary key is a string type  
+    protected $table = 'siswas';
+    protected $primaryKey = 'nisn';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     protected $fillable = [
         'nisn',
@@ -26,4 +26,8 @@ class Siswa extends Model
         'nilai_ujian',
         'ijazah',
     ];
+    public function pendaftaran()
+    {
+        return $this->hasOne(Pendaftaran::class, 'nisn', 'nisn');
+    }
 }

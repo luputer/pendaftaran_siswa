@@ -41,7 +41,7 @@ class SiswaController extends Controller
             $validatedData = $validator->validated();
 
             // Handle file upload  
-            if ($request->hasFile('ijazah')) {
+            if ($request->hasFile('ijazah')) {  
                 $fileName = $request->nisn . '_ijazah.' . $request->file('ijazah')->extension();
                 $path = $request->file('ijazah')->storeAs('uploads/ijazah', $fileName, 'public');
                 $validatedData['ijazah'] = $fileName;

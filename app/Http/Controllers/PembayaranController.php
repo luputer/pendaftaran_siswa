@@ -10,41 +10,51 @@ use Illuminate\Support\Facades\Log;
 
 class PembayaranController extends Controller
 {
-    public function show(Request $request)
+    public function show(Request $request, $nisn)
     {
-        $nisn = $request->query('nisn');
         $siswa = Siswa::where('nisn', $nisn)->first();
 
+        if (!$siswa) {
+            return view('page.pembayaran', [
+                'siswa' => null,
+                'message' => 'Data siswa tidak ditemukan.'
+            ]);
+        }
+
         return view('page.pembayaran', [
-            'siswa' => $siswa,
-            'total' => 1000000 // Total biaya, misalnya Rp 1.000.000
+            'siswa' => $siswa
         ]);
     }
 
     public function processPayment(Request $request)
     {
         try {
-            // Logika validasi dan pemrosesan pembayaran (misalnya: validasi data pembayaran)
+            // Validasi input (opsional)
+            $request->validate([
+                'id_pendaftaran' => 'required|exists:pendaftarans,id',
+                'jumlah_pembayaran' => 'required|numeric',
+                'metode_pembayaran' => 'required|string',
+            ]);
 
-            // Contoh logika penyimpanan pembayaran
+            // Simpan data pembayaran
             $pembayaran = Pembayaran::create([
                 'id_pendaftaran' => $request->input('id_pendaftaran'),
                 'jumlah_pembayaran' => $request->input('jumlah_pembayaran'),
                 'tanggal_pembayaran' => now(),
                 'metode_pembayaran' => $request->input('metode_pembayaran'),
-                'status' => 'berhasil',
+                'status' => 'completed', // Status pembayaran berhasil
             ]);
 
-            // Update status pendaftaran menjadi "berhasil"
+            // Perbarui status pendaftaran
             $pendaftaran = Pendaftaran::find($pembayaran->id_pendaftaran);
-            $pendaftaran->status = 'berhasil';
+            $pendaftaran->status = 'completed'; // Ubah status menjadi 'completed'
             $pendaftaran->save();
 
-            return response()->json(['message' => 'Pembayaran berhasil diproses', 'pembayaran' => $pembayaran]);
+            // Berikan respons JSON untuk AJAX
+            return response()->json(['success' => true, 'message' => 'Pembayaran berhasil diproses!']);
         } catch (\Exception $e) {
-            Log::error('Error processing payment: ' . $e->getMessage());
-
-            return response()->json(['message' => 'Terjadi kesalahan saat memproses pembayaran', 'error' => $e->getMessage()], 500);
+            // Tangani error
+            return response()->json(['success' => false, 'message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
     }
 }
